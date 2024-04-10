@@ -9,4 +9,10 @@ export const user = {
     const { data } = await api.post("/users", { name });
     return data;
   },
+  signIn({ username, password }) {
+      const { data } = api.post("/signin", { username, password });
+      return data;
+  }
 };
+
+//"data: state/user id/ user name/" 
