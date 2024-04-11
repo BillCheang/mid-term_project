@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import service from "./../services";
 
-const Comment = ({ postID, userID, username, message, onDelete, isCurrentUser }) => {
+const Comment = ({ postID, username, message, onDelete, isCurrentUser }) => {
   return (
     <div className="flex items-start py-4 px-6 border-t border-gray-200">
       <div className="flex-shrink-0 mr-4">
@@ -26,7 +27,7 @@ const Comment = ({ postID, userID, username, message, onDelete, isCurrentUser })
   );
 };
 
-const MessageBoard = ({ userID }) => {
+const MessageBoard = ({ signedUser }) => {
   const [messages, setMessages] = useState([
     { postID: 1, userID: 123, username: 'User1', message: '这是用户1的留言。' },
     { postID: 2, userID: 456, username: 'User2', message: '这是用户2的留言。' },
@@ -34,25 +35,45 @@ const MessageBoard = ({ userID }) => {
   ]);
   const [newUsername, setNewUsername] = useState('');
   const [newMessage, setNewMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      try {
+        const response = service.user.signedCheck(signedUser.token);
+        setIsLoggedIn(response);
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    if (signedUser && signedUser.token) {
+      checkLoginStatus();
+    }
+  }, [signedUser]);
 
   const addMessage = () => {
-    if (newUsername && newMessage) {
+    if (newUsername.trim() !== '' && newMessage.trim() !== '') {
       const newPostID = messages.length + 1;
-      const newMessageObj = { postID: newPostID, userID, username: newUsername, message: newMessage };
+      const newMessageObj = { postID: newPostID, userID: signedUser.id, username: newUsername, message: newMessage };
+      
       setMessages([...messages, newMessageObj]);
       setNewUsername('');
       setNewMessage('');
+    } else {
+      console.log("Username or message is empty.");
     }
   };
 
   const deleteMessage = (postID) => {
-    const updatedMessages = messages.filter(message => message.postID !== postID);
+    service.dp
+    const updatedMessages = messages.filter(message => message.postID !== postID || message.userID !== signedUser.id);
     setMessages(updatedMessages);
   };
 
   return (
     <div className="max-w-3xl mx-auto">
-      {userID !== 0 && (
+      {isLoggedIn && (
         <div className="mb-4">
           <div className="w-100">
             <textarea
@@ -75,11 +96,10 @@ const MessageBoard = ({ userID }) => {
         <div key={message.postID}>
           <Comment
             postID={message.postID}
-            userID={message.userID}
             username={message.username}
             message={message.message}
             onDelete={deleteMessage}
-            isCurrentUser={userID !== 0 && userID === message.userID}
+            isCurrentUser={isLoggedIn && signedUser.id === message.userID}
           />
         </div>
       ))}
@@ -87,14 +107,10 @@ const MessageBoard = ({ userID }) => {
   );
 };
 
-function UserPage() {
-  // 假设您有某种用户认证机制
-  // currentUser 表示已登录用户
-  const currentUser = { userID: 123, username: 'User1' }; // 示例用户
-
+function UserPage({ signedUser }) {
   return (
     <div className="max-w-3xl mx-auto">
-      <MessageBoard userID={currentUser.userID} />
+      <MessageBoard signedUser={signedUser} />
     </div>
   );
 };

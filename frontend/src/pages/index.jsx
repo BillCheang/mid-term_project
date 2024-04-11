@@ -1,20 +1,34 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure, Menu } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Fragment } from "react";
+import service from "./../services";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Users", href: "/users" },
-  { name: "Create User", href: "/create-user" },
-];
+const navigation = (isLoggedIn) => {
+  if (isLoggedIn) {
+    return [
+      { name: "Home", href: "/" },
+      { name: "About", href: "/about" },
+      { name: "Users", href: "/users" },
+      { name: "Sign Out", href: "/signout-user" },
+    ];
+  } else {
+    return [
+      { name: "Home", href: "/" },
+      { name: "About", href: "/about" },
+      { name: "Users", href: "/users" },
+      { name: "Create User", href: "/create-user" },
+      { name: "Sign In", href: "/signin-user" },
+    ];
+  }
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function RootLayout() {
+export default function RootLayout({signedUser}) {
+  const isLoggedIn =service.user.signedCheck(signedUser.token);
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -48,7 +62,7 @@ export default function RootLayout() {
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                      {navigation.map((item) => (
+                      {navigation(isLoggedIn).map((item) => (
                         <NavLink
                           key={item.name}
                           to={item.href}
@@ -96,7 +110,7 @@ export default function RootLayout() {
             <Disclosure.Panel className="sm:hidden">
               {({ close }) => (
                 <div className="space-y-1 px-2 pt-2 pb-3">
-                  {navigation.map((item) => (
+                  {navigation(isLoggedIn).map((item) => (
                     <NavLink
                       key={item.name}
                       as={NavLink}

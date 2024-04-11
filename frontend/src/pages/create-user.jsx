@@ -1,8 +1,11 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import services from "../services";
+import { useNavigate } from 'react-router-dom';
 
 function CreateUserPage() {
+  const navigate = useNavigate(); // Move the hook call outside the component
+
   const [formData, setFormData] = useState({ username: "", password: "", profilePicture: null });
   const [message, setMessage] = useState("");
   const [fileError, setFileError] = useState("");
@@ -45,9 +48,10 @@ function CreateUserPage() {
       services.user.createOne(userData).then((data) => {
         setMessage(JSON.stringify(data, null, 2));
       });
-
+      navigate("/signin-user");
       setFormData({ username: "", password: "", profilePicture: null });
     }
+    console.log(fileError);
   };
 
   return (
@@ -67,6 +71,7 @@ function CreateUserPage() {
                 </label>
                 <input
                   name="username"
+                  id="username"
                   type="text"
                   required
                   className="relative block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -82,6 +87,7 @@ function CreateUserPage() {
                 <input
                   name="password"
                   type="password"
+                  id="password"
                   required
                   className="relative block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Password"
@@ -95,6 +101,7 @@ function CreateUserPage() {
                 </label>
                 <input
                   name="profilePicture"
+                  id="profilePicture"
                   type="file"
                   accept=".jpg, .png"
                   required
