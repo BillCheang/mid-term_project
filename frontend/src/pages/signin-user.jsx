@@ -17,33 +17,25 @@ function SingnInPage({setSignedUser}) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    //todo...
     try {
       // Attempt to sign in
-      //const data = await services.user.signIn(formData);
-      
-      // If sign-in successful, route to main
-      const signedUser = {
-        id: 123, // Example user id
-        name: "", // Example user name
-        avatar: "", // Example avatar URL
-        token: "teset11123123" // Example token
-      };
-      if (signedUser.token!=="") {
+      const data = await services.user.signIn(formData);
+      setSignedUser(data);
+      if (data.state) {
         navigate('/');
         // You may also update state or perform any necessary actions upon successful sign-in
-        setSignedUser(signedUser); // Assuming you have a function to update the signed-in user state
-      } else {
+        setSignedUser(data); // Assuming you have a function to update the signed-in user state
+      } 
+      else {
         // If sign-in failed, display a warning message
         setMessage("Invalid username or password. Please try again.");
       }
-      
     } catch (error) {
       // Handle any errors that occur during sign-in
       console.error("Error signing in:", error);
       setMessage("An error occurred during sign-in. Please try again later.");
     }
-    
+
     // Reset form fields
     setFormData({ username: "", password: "" });
   }; 

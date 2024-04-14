@@ -11,6 +11,16 @@ datasource db {
 }
 
 model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  password String
+  avatar String
+}
+model msg {
   id      Int      @id @default(autoincrement())
-  name    String
+  user_id    Int
+  username String
+  avatar String
+  msg    String
+
 }

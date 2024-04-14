@@ -13,14 +13,16 @@ function SignOutPage({ signedUser, setSignedUser }) {
     if (loggedOut) {
       // 登出成功後，設置狀態為已登出，並導航到首頁
       const initalUser = {
-        id: 1, // Example user id
-        name: "", // Example user name
-        avatar: "", // Example avatar URL
-        token: "" // Example token
+        id: 123,
+        name: "",
+        avatar:"",
+        state: false,
       };
       setIsLoggedOut(true);
       // 清除本地存儲的登入資訊
       setSignedUser(initalUser); // 將 signedUser 清空
+
+      //clear cookie and jwt
       navigate('/'); // 導航到首頁
     } else {
       console.error('Sign out failed: Logout unsuccessful');

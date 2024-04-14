@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
 import service from "./../services";
 
 const navigation = (isLoggedIn) => {
@@ -28,7 +27,6 @@ function classNames(...classes) {
 }
 
 export default function RootLayout({signedUser}) {
-  const isLoggedIn =service.user.signedCheck(signedUser.token);
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -54,15 +52,10 @@ export default function RootLayout({signedUser}) {
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                       alt="Your Company"
                     />
-                    <img
-                      className="hidden h-8 w-auto lg:block"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                      {navigation(isLoggedIn).map((item) => (
+                      {navigation(signedUser.state).map((item) => (
                         <NavLink
                           key={item.name}
                           to={item.href}
@@ -82,14 +75,6 @@ export default function RootLayout({signedUser}) {
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <button
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -97,8 +82,8 @@ export default function RootLayout({signedUser}) {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
+                          src={signedUser.state?signedUser.avatar:"https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"}
+                          alt="signin"
                         />
                       </Menu.Button>
                     </div>

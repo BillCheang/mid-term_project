@@ -1,21 +1,22 @@
-import api from "./axiosClient";
+import api from "./axiosClient.js";
 
 export const user = {
   async getAll() {//just for test
     const { data } = await api.get("/users");
     return data;
   },
-  async createOne({ formData}) {
-    //const { data } = await api.post("/users", { formData });
-    //"formData: user id/ user name/user avatar/"
-    const data=true;
-    return data;
+  async createOne(formData) {
+    console.log("create");
+    const  data  = await api.post("/users/create", formData);
+
+    console.log(data.data);
+    return data.data;
   },
-  signIn({ username, password }) {
-     // const { data } = api.post("/users/signin", { username, password });
-      //"data: user id/ user name/user avatar/"
-      const data=true;
-      return data;
+  async signIn({ username, password }) {
+
+
+     const data = await api.post("/users/signIn", { username, password });
+     return data.data;
   },
   signOut(token) {
    // const { data } = api.post("/users/signOut", { token});

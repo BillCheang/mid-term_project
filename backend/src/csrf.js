@@ -17,12 +17,13 @@ export const {
     secure: isProd,
   },
   size: 64, // The size of the generated tokens in bits
-  ignoredMethods: ["GET", "HEAD", "OPTIONS"], // A list of request methods that will not be protected.
+  ignoredMethods: ["GET", "HEAD", "OPTIONS","POST"], // A list of request methods that will not be protected.//!!!!!!!!!!!!!!!!!!!!!test
   getTokenFromRequest: (req) => req.headers["x-csrf-token"], // A function that returns the token from the request
 });
 
 export function csrfErrorHandler(error, req, res, next) {
   if (error == invalidCsrfTokenError) {
+   
     res.status(403).json({
       error: "invalid csrf token",
     });

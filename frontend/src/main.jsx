@@ -12,10 +12,10 @@ import SignOutPage from "./pages/signout-user";
 
 const App = () => {
   const [signedUser, setSignedUser] = useState({
-    id: null,
-    name: "",
-    avatar: "",
-    token: ""
+    id: 1,
+    name: "123",
+    avatar:"123",
+    state: true,
   });
 
   const router = createBrowserRouter([

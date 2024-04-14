@@ -5,11 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateUserPage() {
   const navigate = useNavigate(); // Move the hook call outside the component
-
-  const [formData, setFormData] = useState({ username: "", password: "", profilePicture: null });
+  const [formData, setFormData] = useState({ username: "", profilePicture: null });
   const [message, setMessage] = useState("");
   const [fileError, setFileError] = useState("");
-
   const handleTextInputChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({
       ...prev,
@@ -33,25 +31,32 @@ function CreateUserPage() {
         ...prev,
         profilePicture: file,
       }));
+     
     }
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     if (!fileError) {
       const userData = new FormData();
       userData.append("username", formData.username);
-      userData.append("password", formData.password);
-      userData.append("profilePicture", formData.profilePicture);
-
-      services.user.createOne(userData).then((data) => {
-        setMessage(JSON.stringify(data, null, 2));
-      });
-      navigate("/signin-user");
-      setFormData({ username: "", password: "", profilePicture: null });
+      userData.append("file", formData.profilePicture);
+      try {
+        // Attempt to create user
+        const data = await services.user.createOne(userData);
+        if (data.state) {
+          navigate('/');
+          navigate("/signin-user");
+        } else {
+          console.error("Error submit");
+        }
+      } catch (error) {
+        console.error("Error creating user:", error);
+        setMessage("An error occurred during user creation. Please try again later.");
+      }
+      
+      setFormData({ username: "", profilePicture: null }); // Reset form data after server response
     }
-    console.log(fileError);
   };
 
   return (
@@ -84,16 +89,6 @@ function CreateUserPage() {
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
-                <input
-                  name="password"
-                  type="password"
-                  id="password"
-                  required
-                  className="relative block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleTextInputChange}
-                />
               </div>
               <div>
                 <label htmlFor="profilePicture" className="sr-only">
