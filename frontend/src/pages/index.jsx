@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import service from "./../services";
+import img from '../assets/logo.png'
 
 const navigation = (isLoggedIn) => {
   if (isLoggedIn) {
@@ -46,13 +46,6 @@ export default function RootLayout({signedUser}) {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="block h-8 w-auto lg:hidden"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
-                  </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {navigation(signedUser.state).map((item) => (
@@ -82,7 +75,7 @@ export default function RootLayout({signedUser}) {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={signedUser.state?signedUser.avatar:"https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"}
+                          src={signedUser.state?signedUser.avatar:""}
                           alt="signin"
                         />
                       </Menu.Button>
@@ -133,9 +126,9 @@ export function RootIndex() {
         <h1 className="text-4xl block">Welcome</h1>
       </div>
       <div className="flex justify-center">
-        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">
-          <img src="/vite.svg" className="w-52 logo" />
-        </a>
+
+          <img src={img} className="object-contain  w-80 logo transform rotate-90" />
+
       </div>
     </div>
   );

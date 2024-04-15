@@ -13,30 +13,19 @@ export const user = {
     return data.data;
   },
   async signIn({ username, password }) {
-
-
      const data = await api.post("/users/signIn", { username, password });
      return data.data;
   },
-  signOut(token) {
-   // const { data } = api.post("/users/signOut", { token});
-    const data=true;
+  async signOut() {
+   const  data  = await api.post("/users/signOut",{"signOut":true});
+   console.log(data);
+    return data.data;
+  },
+  async getAvatar(userId) {
+    const  data  = await api.get(`/users/img/1713094993848_.png`);
+    //console.log(data);
     return data;
   },
-  signedCheck(token) {
-    //const { data } = api.post("/users/signedCheck", {token});
-    const data=token!==""&& token!==null && token!==undefined  ?true:false;
-    return data;
-  },
-  userName(token) {
-    //const { data } = api.post("/users/userName", {token});
-    data="name";
-    return data;
-  },
-  deleteUser(username) {
-    const { data } = api.post("/users/deleteUser", {username});
-    return data;
-  }
 };
 
 

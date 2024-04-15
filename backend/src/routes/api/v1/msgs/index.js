@@ -3,6 +3,6 @@ import { createOneMsg, deleteOneMsg, getAllMsg } from "./handlers.js";
 
 const router = Router();
 router.get(`/`, getAllMsg);
-router.post(`/createOne`, createOneMsg);
-router.get(`/deleteOne`, deleteOneMsg);
+router.post(`/create`, createOneMsg);
+router.post(`/delete`, deleteOneMsg);
 export default router;

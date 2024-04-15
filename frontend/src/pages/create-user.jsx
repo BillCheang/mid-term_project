@@ -45,8 +45,12 @@ function CreateUserPage() {
         // Attempt to create user
         const data = await services.user.createOne(userData);
         if (data.state) {
-          navigate('/');
+          // Show alert with password
+          alert("Password:"+ data.password);
+          // Navigate to signin page
           navigate("/signin-user");
+          // Clear form data
+          setFormData({ username: "", profilePicture: null });
         } else {
           console.error("Error submit");
         }
@@ -54,8 +58,6 @@ function CreateUserPage() {
         console.error("Error creating user:", error);
         setMessage("An error occurred during user creation. Please try again later.");
       }
-      
-      setFormData({ username: "", profilePicture: null }); // Reset form data after server response
     }
   };
 

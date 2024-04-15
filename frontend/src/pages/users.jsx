@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import service from './../services';
-
+const currentUrl="http://localhost:8000/api/v1/users/img/"
 const Comment = ({ username, message, avatar, onDelete, isCurrentUser }) => {
   return (
     <div className="flex items-start py-4 px-6 border-t border-gray-200">
@@ -29,8 +29,6 @@ const Comment = ({ username, message, avatar, onDelete, isCurrentUser }) => {
 
 const MessageBoard = ({ signedUser }) => {
   const [messages, setMessages] = useState([
-    { id: 1, user_id: 123, username: 'User1', message: '这是用户1的留言。', avatar:'https://i.pravatar.cc/150?u=$user1' },
-    { id: 2, user_id: 456, username: 'User2', message: '这是用户2的留言。', avatar:'https://i.pravatar.cc/150?u=$user2' },
     // 添加更多留言
   ]);
   const [newUsername, setNewUsername] = useState('');
@@ -39,8 +37,9 @@ const MessageBoard = ({ signedUser }) => {
   useEffect(() => {
     // 副作用函数
     getAllmsg();
+   
   }, []);
-
+  
   async function getAllmsg() {
     try {
       const data = await service.msg.getAll();
@@ -51,6 +50,7 @@ const MessageBoard = ({ signedUser }) => {
     }
   }
 
+ 
   const addMessage = async () => {
     if (newMessage.trim() !== '') {
       const newMessageObj = { user_id: signedUser.id, username: newUsername, msg: newMessage };
@@ -73,7 +73,8 @@ const MessageBoard = ({ signedUser }) => {
 
   const deleteMessage = async (id) => {
     try {
-      const data = await service.msg.deleteOne(id);
+      console.log("test");
+      const data = await service.msg.deleteOne(signedUser.id,id);
       if (data.state) {
         getAllmsg();
       } else {

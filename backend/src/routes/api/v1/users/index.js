@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllUsers, getOneUser, createOneUser , signIn,signOut} from "./handlers.js";
+import { getAllUsers, createOneUser , signIn,signOut,getAvatar} from "./handlers.js";
 import multer from 'multer';
 
 // config multer
@@ -30,6 +30,6 @@ router.get(`/`, getAllUsers);
 router.post(`/create`, upload.single('file'), createOneUser);
 router.post(`/signIn`, signIn);
 router.post(`/signOut`, signOut);
-router.get(`/:id`, getOneUser);
+router.get(`/img/:img`, getAvatar);
 
 export default router;

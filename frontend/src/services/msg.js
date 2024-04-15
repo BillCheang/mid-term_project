@@ -10,13 +10,15 @@ export const msg = {
   async createOne(MessageObj) {
     const formData=new FormData();
     formData.append("user_id",MessageObj.user_id);
-    formData.append("username",MessageObj.username);
     formData.append("msg",MessageObj.msg);
-    const { data } = await api.post("/msgs/create", formData);
+    const user_id=MessageObj.user_id;
+    const msgcontent=MessageObj.msg
+    const { data } = await api.post("/msgs/create", {user_id,msgcontent});
     return data;
   },
-  async deleteOne(msg_id) {
-    const { data } = await api.delete("/msgs/delete", {msg_id});
+  async deleteOne(user_id,msg_id) {
+    console.log(msg_id);
+    const { data } = await api.post("/msgs/delete", {user_id,msg_id});
     return data;
   }
 }; 
