@@ -52,6 +52,8 @@ function CreateUserPage() {
           // Clear form data
           setFormData({ username: "", profilePicture: null });
         } else {
+
+          setMessage("An Username signed");
           console.error("Error submit");
         }
       } catch (error) {

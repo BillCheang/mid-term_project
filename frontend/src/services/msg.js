@@ -17,7 +17,6 @@ export const msg = {
     return data;
   },
   async deleteOne(user_id,msg_id) {
-    console.log(msg_id);
     const { data } = await api.post("/msgs/delete", {user_id,msg_id});
     return data;
   }

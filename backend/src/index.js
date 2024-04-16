@@ -6,10 +6,14 @@ import { fileURLToPath } from "url";
 import { prisma } from "./adapters.js";
 import rootRouter from "./routes/index.js";
 import { csrfErrorHandler, doubleCsrfProtection } from "./csrf.js";
+import helmet from 'helmet'
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const frontendDir = path.join(__dirname, "../../frontend/dist");
 
-const port = process.env.PORT || 8000;
+
+
+const port = process.env.PORT || 8080;
 
 const app = express();
 
@@ -24,21 +28,21 @@ app.use(
       httpOnly: true,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
-      maxAge: null, // session cookie
+      maxAge: null, // session cookie'
     },
     // use random secret
-    name: "sessionId", // don't omit this option
+    name: "asdfasdfasd",// don't omit this option
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
 );
-
 app.use(express.json());
+app.use(helmet());
 app.use(cookieParser());
 app.use(doubleCsrfProtection);
-
 app.use(csrfErrorHandler);
+
 app.use(rootRouter);
 
 

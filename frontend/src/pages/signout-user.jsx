@@ -9,6 +9,7 @@ function SignOutPage({ signedUser, setSignedUser }) {
   const handleSignOut = async () => {
     // 使用 services.user.signOut 來執行登出，並清除 token
     let data = '';
+    navigate('/');
     try{
       console.log('test')
       data = await services.user.signOut();
@@ -27,8 +28,7 @@ function SignOutPage({ signedUser, setSignedUser }) {
       setIsLoggedOut(true);
       // 清除本地存儲的登入資訊
       setSignedUser(initalUser); // 將 signedUser 清空
-      //clear cookie and jwt
-      navigate('/'); // 導航到首頁
+      //clear cookie and jwt 
     } else {
       console.error('Sign out failed: Logout unsuccessful');
     }

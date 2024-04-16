@@ -6,10 +6,7 @@ export const user = {
     return data;
   },
   async createOne(formData) {
-    console.log("create");
     const  data  = await api.post("/users/create", formData);
-
-    console.log(data.data);
     return data.data;
   },
   async signIn({ username, password }) {
@@ -18,7 +15,6 @@ export const user = {
   },
   async signOut() {
    const  data  = await api.post("/users/signOut",{"signOut":true});
-   console.log(data);
     return data.data;
   },
   async getAvatar(userId) {

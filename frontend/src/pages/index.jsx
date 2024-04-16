@@ -1,7 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import img from '../assets/logo.png'
+import logo from '../assets/logo.png'
+import avatar from '../assets/avatar.png'
 
 const navigation = (isLoggedIn) => {
   if (isLoggedIn) {
@@ -69,18 +70,11 @@ export default function RootLayout({signedUser}) {
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Profile dropdown */}
-                  <Menu as="div" className="relative ml-3">
-                    <div>
-                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={signedUser.state?signedUser.avatar:""}
+                  <img
+                          className="h-12  rounded-full"
+                          src={signedUser.state?signedUser.avatar:avatar}
                           alt="signin"
-                        />
-                      </Menu.Button>
-                    </div>
-                  </Menu>
+                    />
                 </div>
               </div>
             </div>
@@ -126,9 +120,7 @@ export function RootIndex() {
         <h1 className="text-4xl block">Welcome</h1>
       </div>
       <div className="flex justify-center">
-
-          <img src={img} className="object-contain  w-80 logo transform rotate-90" />
-
+          <img src={logo} className="object-contain  w-80 logo transform rotate-90" />
       </div>
     </div>
   );
