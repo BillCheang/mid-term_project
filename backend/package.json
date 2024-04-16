@@ -9,6 +9,7 @@
     "dev": "nodemon --experimental-specifier-resolution=node src/index.js",
     "server": "nodemon src/server.js --ext js --exec babel-node"
   },
+  
   "dependencies": {
     "@prisma/client": "4.11.0",
     "cookie-parser": "^1.4.6",
