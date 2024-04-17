@@ -52,7 +52,7 @@ export async function signOut(req, res) {
   req.session.destroy(() => {
     console.log('session destroyed')
   })
-  res.clearCookie();
+  res.setHeader("Set-Cookie", "cookieName='fffff'; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;");;
   return res.json({state:true});
 }
 

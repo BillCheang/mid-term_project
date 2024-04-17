@@ -82,7 +82,7 @@ export default function RootLayout({signedUser}) {
             <Disclosure.Panel className="sm:hidden">
               {({ close }) => (
                 <div className="space-y-1 px-2 pt-2 pb-3">
-                  {navigation(isLoggedIn).map((item) => (
+                  {navigation(signedUser.state).map((item) => (
                     <NavLink
                       key={item.name}
                       as={NavLink}

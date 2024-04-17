@@ -31,7 +31,7 @@ app.use(
       maxAge: null, // session cookie'
     },
     // use random secret
-    name: "asdfasdfasd",// don't omit this option
+    name: "fffff",// don't omit this option
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,

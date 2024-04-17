@@ -67,13 +67,12 @@ const MessageBoard = ({ signedUser }) => {
       setNewUsername('');
       setNewMessage('');
     } else {
-      console.log("message is empty.");
+      console.error("message is empty.");
     }
   };
 
   const deleteMessage = async (id) => {
     try {
-      console.log("test");
       const data = await service.msg.deleteOne(signedUser.id,id);
       if (data.state) {
         getAllmsg();
