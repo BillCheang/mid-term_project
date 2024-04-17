@@ -11,7 +11,6 @@ function SignOutPage({ signedUser, setSignedUser }) {
     let data = '';
     navigate('/');
     try{
-      console.log('test')
       data = await services.user.signOut();
 
     }catch (error) {
