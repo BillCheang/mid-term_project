@@ -17,7 +17,7 @@ export const {
     secure: isProd,
   },
   size: 64, // The size of the generated tokens in bits
-  ignoredMethods: ["GET", "HEAD", "OPTIONS"], // A list of request methods that will not be protected.//!!!!!!!!!!!!!!!!!!!!!test
+  ignoredMethods: ["GET", "HEAD", "OPTIONS",], // A list of request methods that will not be protected.//!!!!!!!!!!!!!!!!!!!!!test
   getTokenFromRequest: (req) => req.headers["x-csrf-token"], // A function that returns the token from the request
 });
 

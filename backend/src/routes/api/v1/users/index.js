@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createOneUser , signIn,signOut,getAvatar} from "./handlers.js";
+import { AiChat } from "./AI.js";
 import multer from 'multer';
 import auth from "./auth.js";
 
@@ -30,6 +31,7 @@ const router = Router();
 router.post(`/create`, upload.single('file'), createOneUser);
 router.post(`/signIn`, signIn);
 router.post(`/signOut`, signOut);
+router.post('/AiChat',AiChat);
 router.get(`/img/:img`, getAvatar);
 router.get('/checkSigned',auth);
 

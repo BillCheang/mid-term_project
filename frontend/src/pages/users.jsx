@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import service from './../services';
-const currentUrl="http://localhost:8000/api/v1/users/img/"
+
 const Comment = ({ username, message, avatar, onDelete, isCurrentUser }) => {
   return (
     <div className="flex items-start py-4 px-6 border-t border-gray-200">
@@ -53,7 +53,7 @@ const MessageBoard = ({ signedUser }) => {
  
   const addMessage = async () => {
     if (newMessage.trim() !== '') {
-      const newMessageObj = { user_id: signedUser.id, username: newUsername, msg: newMessage };
+      const newMessageObj = { msg: newMessage };
       try {
         const data = await service.msg.createOne(newMessageObj);
         if (data.state) {
@@ -73,7 +73,7 @@ const MessageBoard = ({ signedUser }) => {
 
   const deleteMessage = async (id) => {
     try {
-      const data = await service.msg.deleteOne(signedUser.id,id);
+      const data = await service.msg.deleteOne(id);
       if (data.state) {
         getAllmsg();
       } else {

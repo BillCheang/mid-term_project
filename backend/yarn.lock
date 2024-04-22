@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@google/generative-ai@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/@google/generative-ai/-/generative-ai-0.7.1.tgz"
+  integrity sha512-WTjMLLYL/xfA5BW6xAycRPiAX7FNHKAxrid/ayqC1QMam0KAK0NbMeS9Lubw80gVg5xFMLE+H7pw4wdNzTOlxw==
+
 "@prisma/client@4.11.0":
   version "4.11.0"
   resolved "https://registry.npmjs.org/@prisma/client/-/client-4.11.0.tgz"

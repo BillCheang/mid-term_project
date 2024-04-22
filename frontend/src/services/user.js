@@ -20,6 +20,11 @@ export const user = {
   async checkSigned(){
     const  data  = await api.get(`/users/checkSigned`);
     return data.data;
+  },
+  async aiChat(prompt){
+    console.log(prompt)
+    const data =await api.post("/users/AiChat",{"prompt":prompt});
+    return data.data;
   }
 };
 

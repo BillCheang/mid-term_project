@@ -9,6 +9,7 @@ const navigation = (isLoggedIn) => {
     return [
       { name: "Home", href: "/" },
       { name: "About", href: "/about" },
+      { name: "Ai Chat", href: "/ai-chat" },
       { name: "Users", href: "/users" },
       { name: "Sign Out", href: "/signout-user" },
     ];
@@ -16,6 +17,7 @@ const navigation = (isLoggedIn) => {
     return [
       { name: "Home", href: "/" },
       { name: "About", href: "/about" },
+      { name: "Ai Chat", href: "/ai-chat" },
       { name: "Users", href: "/users" },
       { name: "Create User", href: "/create-user" },
       { name: "Sign In", href: "/signin-user" },

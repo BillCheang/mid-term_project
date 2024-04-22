@@ -11,13 +11,12 @@ export const msg = {
     const formData=new FormData();
     formData.append("user_id",MessageObj.user_id);
     formData.append("msg",MessageObj.msg);
-    const user_id=MessageObj.user_id;
     const msgcontent=MessageObj.msg
-    const { data } = await api.post("/msgs/create", {user_id,msgcontent});
+    const { data } = await api.post("/msgs/create", {msgcontent});
     return data;
   },
-  async deleteOne(user_id,msg_id) {
-    const { data } = await api.post("/msgs/delete", {user_id,msg_id});
+  async deleteOne(msg_id) {
+    const { data } = await api.post("/msgs/delete", {msg_id});
     return data;
   }
 }; 

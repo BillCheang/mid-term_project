@@ -9,6 +9,7 @@ import CreateUserPage from "./pages/create-user";
 import ErrorPage from "./pages/error-page";
 import SignInPage from "./pages/signin-user";
 import SignOutPage from "./pages/signout-user";
+import AichatPage from "./pages/ai-chat";
 import services from "./services";
 const App = () => {
   const [signedUser, setSignedUser] = useState({
@@ -44,6 +45,10 @@ const App = () => {
         {
           path: "/signout-user",
           element: <SignOutPage signedUser={signedUser} setSignedUser={setSignedUser} />,
+        },
+        {
+          path: "/ai-chat",
+          element: <AichatPage />,
         },
       ],
     },
