@@ -25,7 +25,7 @@ export async function getAllMsg(req, res) {
 
 export async function deleteOneMsg(req, res) {
   const user_id =req.session.user_id;
-  const msg_id=xsss(req.body.msg_id);
+  const msg_id=xss(req.body.msg_id);
   const msg= await prisma.msg.findFirst({where:{id:msg_id,user_id:user_id},select:{id:true}});
   if (msg === null) return res.status(404).json({ error: "msg cannot delete" });
   const result=await prisma.msg.delete({where:{id:msg_id}});

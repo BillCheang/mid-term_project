@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createOneUser , signIn,signOut,getAvatar} from "./handlers.js";
 import multer from 'multer';
+import auth from "./auth.js";
 
 // config multer
 const storage = multer.diskStorage({
@@ -30,5 +31,6 @@ router.post(`/create`, upload.single('file'), createOneUser);
 router.post(`/signIn`, signIn);
 router.post(`/signOut`, signOut);
 router.get(`/img/:img`, getAvatar);
+router.get('/checkSigned',auth);
 
 export default router;

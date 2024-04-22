@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import services from "../services";
 
 function SignOutPage({ signedUser, setSignedUser }) {
   const navigate = useNavigate();
   const [isLoggedOut, setIsLoggedOut] = useState(false);
-
+  
+  useEffect(() => {
+    // 副作用函数
+    services.user.checkSigned().then((data) => {
+      
+      if(!data.state)navigate('/');
+    });
+    
+   
+  }, []);
+  
   const handleSignOut = async () => {
     // 使用 services.user.signOut 來執行登出，並清除 token
     let data = '';

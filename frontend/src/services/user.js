@@ -17,11 +17,10 @@ export const user = {
    const  data  = await api.post("/users/signOut",{"signOut":true});
     return data.data;
   },
-  async getAvatar(userId) {
-    const  data  = await api.get(`/users/img/1713094993848_.png`);
-    //console.log(data);
-    return data;
-  },
+  async checkSigned(){
+    const  data  = await api.get(`/users/checkSigned`);
+    return data.data;
+  }
 };
 
 
